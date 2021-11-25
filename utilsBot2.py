@@ -1,6 +1,6 @@
 import requests
 import json
-from configBot import keys
+from configBot import keys, APIKEY
 
 class ConversionException(Exception):
     pass
@@ -17,13 +17,13 @@ class CryyptoConverter:
         try:
             quote_ticker = keys[quote]
         except KeyError:
-            raise ConversionException(f'Не удалось обработать валюту{quote}!')
+            raise ConversionException(f'Не удалось обработать валюту {quote}!')
         try:
             base_ticker = keys[base]
         except KeyError:
-            raise ConversionException(f'Не удалось обработать валюту{base}!')
+            raise ConversionException(f'Не удалось обработать  {base}!')
 
-        r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
+        r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}&api_key={{APIKEY}} ')
         middle_base = json.loads(r.content)[keys[base]]
         return middle_base
 
