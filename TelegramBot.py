@@ -1,7 +1,7 @@
 
 import telebot
 from configBot import keys ,TOKEN
-from Extensions import ConversionException, CryyptoConverter, CountTB
+from Extensions import ConversionException, ValuePreparer, CountTB
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -29,8 +29,8 @@ def conversion(message):
         if len(values) != 3:
             raise ConversionException('Несоответствие количеста параметров (должно быть 3)')
         amount, quote, base = values
-        middle_base = CryyptoConverter.convert(quote, base, amount)
-        total_base = CountTB.multi(amount, middle_base) # Класс со статическим методом из задания добавлен)
+        ValuePreparer.convert(quote, base, amount)
+        total_base = CountTB.get_price(quote, base, amount) # Класс со статическим методом из задания добавлен)
     except ConversionException as e:
         bot.reply_to(message,f'Ошибка пользователя\n{e}')
     except Exception as e:
