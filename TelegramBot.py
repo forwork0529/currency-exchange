@@ -1,7 +1,7 @@
 
 import telebot
 from configBot import keys ,TOKEN
-from utilsBot2 import ConversionException, CryyptoConverter, CountTB
+from Extensions import ConversionException, CryyptoConverter, CountTB
 
 bot = telebot.TeleBot(TOKEN)
 
